@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aidijing.mapper.HistoryMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aidijing.entity.History">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="action" property="action" />
+		<result column="action_status" property="actionStatus" />
+		<result column="ip_address" property="ipAddress" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="table_state" property="tableState" />
+		<result column="remark" property="remark" />
+	</resultMap>
+
+</mapper>
