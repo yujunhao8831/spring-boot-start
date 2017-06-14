@@ -61,7 +61,6 @@ public class AuthenticationController {
          * 重新加载密码安全后我们可以生成令牌 {@link org.zerhusen.security.service.JwtUserDetailsServiceImpl#loadUserByUsername(String)}
          * old : final UserDetails userDetails = userDetailsService.loadUserByUsername( authenticationRequest.getUsername() );
          */
-
         final UserDetails userDetails = ( UserDetails ) authentication.getPrincipal();
         final String      token       = jwtTokenUtil.generateToken( userDetails, device );
         // 返回

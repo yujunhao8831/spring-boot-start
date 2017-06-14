@@ -35,7 +35,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder( passwordEncoder() );
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder () {
         return new BCryptPasswordEncoder();
@@ -49,19 +48,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure ( HttpSecurity httpSecurity ) throws Exception {
         httpSecurity
-                // we don't need CSRF because our token is invulnerable
+                // jwt不需要csrf
                 .csrf().disable()
-
-                .exceptionHandling().authenticationEntryPoint( authenticationEntryPoint ).and()
-
-                // don't create session
-                // 不创建会话
+                // jwt不需要session , 所以不创建会话
                 .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
-
+                // 异常处理
+                .exceptionHandling().authenticationEntryPoint( authenticationEntryPoint ).and()
                 .authorizeRequests()
-                //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                // allow anonymous resource requests
                 // 允许匿名资源请求
                 .antMatchers(
                         HttpMethod.GET,
@@ -73,13 +66,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 ).permitAll()
                 .antMatchers( "/auth/**" ).permitAll()
+                // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
-
-        // Custom JWT based security filter
         // 基于定制JWT安全过滤器
         httpSecurity.addFilterBefore( authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class );
-
-        // disable page caching
         // 禁用页面缓存
         httpSecurity.headers().cacheControl();
     }
