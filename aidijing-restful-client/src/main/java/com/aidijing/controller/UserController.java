@@ -32,7 +32,6 @@ public class UserController {
     @Autowired
     private RedissonClient redissonClient;
 
-
     @GetMapping
     public ResponseEntity< PageInfo > listPage ( PageRowBounds pageRowBounds ) {
         return ResponseEntity.ok().setResponseContent( userService.listPage( pageRowBounds ) );

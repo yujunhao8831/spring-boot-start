@@ -100,6 +100,20 @@ public abstract class DateUtils {
         return instance.getTime();
     }
 
+    /**
+     * 在指定时间内 + n 秒
+     *
+     * @param date
+     * @param number
+     * @return
+     */
+    public static Date addSecond ( Date date, int number ) {
+        Calendar instance = Calendar.getInstance();
+        instance.setTime( date );
+        instance.add( Calendar.SECOND, number );
+        return instance.getTime();
+    }
+
 
     /**
      * 得到两个日期之间的分钟差

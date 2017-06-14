@@ -37,4 +37,8 @@ public interface IUserService extends IService< User > {
      * @return
      */
     ListenableFuture< Boolean > asyncUpdate ();
+
+
+    User findByUsername ( String username );
+    
 }

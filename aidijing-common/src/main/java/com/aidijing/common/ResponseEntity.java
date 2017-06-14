@@ -3,6 +3,9 @@ package com.aidijing.common;
 import com.aidijing.common.util.JsonUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author : 披荆斩棘
  * @date : 16/6/16
@@ -62,12 +65,28 @@ public class ResponseEntity < T > {
         return new ResponseEntity( error.getStatusCode(), message );
     }
 
+    public static ResponseEntity fail () {
+        return new ResponseEntity( StatusCode.FAIL.getStatusCode(), StatusCode.FAIL.getStatusMessage() );
+    }
+
     public static ResponseEntity fail ( String message ) {
         return new ResponseEntity( StatusCode.FAIL.getStatusCode(), message );
     }
 
     public static ResponseEntity fail ( StatusCode fail, String message ) {
         return new ResponseEntity( fail.getStatusCode(), message );
+    }
+
+
+    public static ResponseEntity unauthorized () {
+        return new ResponseEntity(
+                StatusCode.UNAUTHORIZED.getStatusCode(),
+                StatusCode.UNAUTHORIZED.getStatusMessage()
+        );
+    }
+
+    public static ResponseEntity unauthorized ( String message ) {
+        return new ResponseEntity( StatusCode.UNAUTHORIZED.getStatusCode(), message );
     }
 
     public static ResponseEntity serviceUnavailable () {
@@ -90,6 +109,21 @@ public class ResponseEntity < T > {
     @JsonIgnore
     public boolean isNotOk () {
         return ! isOk();
+    }
+
+    public ResponseEntity add ( String key, Object value ) {
+        if ( null == this.responseContent ) {
+            this.responseContent = ( T ) new HashMap< String, Object >();
+            Map< String, Object > content = ( Map< String, Object > ) this.responseContent;
+            content.put( key, value );
+            return this;
+        }
+        if ( ! ( this.responseContent instanceof Map ) ) {
+            return this;
+        }
+        ( ( Map ) this.responseContent ).put( key, value );
+        return this;
+
     }
 
     @Override

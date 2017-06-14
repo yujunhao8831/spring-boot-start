@@ -27,8 +27,18 @@ server:
   compression:
     enabled: true
     mime-types: application/json
-    
-
+# jwt 配置
+jwt:
+  # header中key,以改值为key在header中获取 request.getHeader('key')
+  header: Authorization
+  # 签名密钥
+  secret: aidijing
+  # 过期时间,单位:秒
+  expiration: 3600
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
 
     
     

@@ -3,6 +3,7 @@ package com.aidijing.service.impl;
 import com.aidijing.entity.User;
 import com.aidijing.mapper.UserMapper;
 import com.aidijing.service.IUserService;
+import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -121,6 +122,11 @@ public class UserServiceImpl extends ServiceImpl< UserMapper, User > implements 
         final List< User > users = super.selectList( null );
         users.forEach( user -> user.setUpdateTime( Calendar.getInstance().getTime() ) );
         return super.updateBatchById( users );
+    }
+
+    @Override
+    public User findByUsername ( String username ) {
+        return this.selectOne( new Condition().eq( "username", username ) );
     }
 
 }
